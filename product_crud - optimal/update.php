@@ -16,9 +16,6 @@ if (!$id) {
     exit;
 }
 
-$pdo = new PDO('mysql:host=localhost;port=3306;dbname=products_crud', 'root', '');
-$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
 $statement = $pdo->prepare('SELECT * FROM products WHERE id = :id');
 $statement->bindValue(':id', $id);
 $statement->execute();
@@ -30,33 +27,7 @@ $price = $product['price'];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    $title = $_POST['title'];
-    $description = $_POST['description'];
-    $price = $_POST['price'];
-
-    $image = $_FILES['image'] ?? null;
-    $imagePath = '';
-
-    if (!is_dir('images')) {
-        mkdir('images');
-    }
-
-    if ($image) {
-        if ($product['image']) {
-            unlink($product['image']);
-        }
-        $imagePath = 'images/' . randomString(8) . '/' . $image['name'];
-        mkdir(dirname($imagePath));
-        move_uploaded_file($image['tmp_name'], $imagePath);
-    }
-
-    if (!$title) {
-        $errors[] = 'Product title is required';
-    }
-
-    if (!$price) {
-        $errors[] = 'Product price is required';
-    }
+    require_once './validate_product.php';
 
     if (empty($errors)) {
         $statement = $pdo->prepare("UPDATE products SET title = :title, 
@@ -79,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <?php include_once "views/partials/header.php" ?>
 
 <p>
-    <a href="index.php" class="btn btn-default">Back to products</a>
+    <a href="index.php" class="btn btn-secondary">Back to products</a>
 </p>
 
 <h1>Update Product: <b><?php echo $product['title'] ?></b></h1>

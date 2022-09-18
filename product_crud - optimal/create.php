@@ -1,6 +1,7 @@
 <?php
 
 require_once "./database.php";
+require_once "functions.php";
 
 $errors = [];
 
@@ -51,22 +52,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header('Location: index.php');
     }
 }
-function randomString($n)
-{
-    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    $str = '';
-    for ($i = 0; $i < $n; $i++) {
-        $index = rand(0, strlen($characters) - 1);
-        $str .= $characters[$index];
-    }
-
-    return $str;
-}
-
-
 ?>
 
 <?php include_once "views/partials/header.php" ?>
+<p>
+    <a href="index.php" class="btn btn-secondary">Back to products</a>
+</p>
 
 <h1>Create new product</h1>
 
