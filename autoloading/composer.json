@@ -1,0 +1,17 @@
+{
+    "name": "user/autoloading",
+    "authors": [
+        {
+            "name": "mariamnozadze",
+            "email": "mariamnozadze97@yahoo.com"
+        }
+    ],
+    "require": {
+        "guzzlehttp/guzzle": "^7.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "app\\": "./app"
+        }
+    }
+}
