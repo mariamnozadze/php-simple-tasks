@@ -1,7 +1,7 @@
 <?php
 
-require_once "./database.php";
-require_once "functions.php";
+require_once "../../database.php";
+require_once "../../functions.php";
 
 $errors = [];
 
@@ -14,30 +14,7 @@ $product = [
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    $title = $_POST['title'];
-    $description = $_POST['description'];
-    $price = $_POST['price'];
-
-    $image = $_FILES['image'] ?? null;
-    $imagePath = '';
-
-    if (!is_dir('images')) {
-        mkdir('images');
-    }
-
-    if ($image && $image['tmp_name']) {
-        $imagePath = 'images/' . randomString(8) . '/' . $image['name'];
-        mkdir(dirname($imagePath));
-        move_uploaded_file($image['tmp_name'], $imagePath);
-    }
-
-    if (!$title) {
-        $errors[] = 'Product title is required';
-    }
-
-    if (!$price) {
-        $errors[] = 'Product price is required';
-    }
+    require_once "../../validate_product.php";
 
     if (empty($errors)) {
         $statement = $pdo->prepare("INSERT INTO products (title, image, description, price, create_date)
@@ -54,14 +31,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
-<?php include_once "views/partials/header.php" ?>
+<?php include_once "../../views/partials/header.php" ?>
 <p>
     <a href="index.php" class="btn btn-secondary">Back to products</a>
 </p>
 
 <h1>Create new product</h1>
 
-<?php include_once "views/products/form.php" ?>
+<?php include_once "../../views/products/form.php" ?>
 
 </body>
 

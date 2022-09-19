@@ -1,7 +1,7 @@
 <?php
 
-require_once "functions.php";
-require_once "./database.php";
+require_once "../../functions.php";
+require_once "../../database.php";
 
 /*
 ---if using PhpStorm---
@@ -21,13 +21,15 @@ $statement->bindValue(':id', $id);
 $statement->execute();
 $product = $statement->fetch(PDO::FETCH_ASSOC);
 
+$errors = [];
+
 $title = $product['title'];
 $description = $product['description'];
 $price = $product['price'];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    require_once './validate_product.php';
+    require_once '../../validate_product.php';
 
     if (empty($errors)) {
         $statement = $pdo->prepare("UPDATE products SET title = :title, 
@@ -39,7 +41,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $statement->bindValue(':description', $description);
         $statement->bindValue(':price', $price);
         $statement->bindValue(':id', $id);
-
         $statement->execute();
         header('Location: index.php');
     }
@@ -47,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 ?>
 
-<?php include_once "views/partials/header.php" ?>
+<?php include_once "../../views/partials/header.php" ?>
 
 <p>
     <a href="index.php" class="btn btn-secondary">Back to products</a>
@@ -55,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <h1>Update Product: <b><?php echo $product['title'] ?></b></h1>
 
-<?php include_once "views/products/form.php" ?>
+<?php include_once "../../views/products/form.php" ?>
 
 </body>
 
