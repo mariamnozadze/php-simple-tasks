@@ -2,7 +2,7 @@
 Following Codeholic's PHP course.
 
  - How to work with file System
- - How to use cURL to fetch resources
+ - How to use URL to fetch resources
  - Object Oriented PHP
  - Namespaces
  - Composer 
