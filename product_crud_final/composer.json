@@ -1,0 +1,15 @@
+{
+    "name": "user/product_crud_final",
+    "authors": [
+        {
+            "name": "mariamnozadze",
+            "email": "mariamnozadze97@yahoo.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "app\\": "./"
+        }
+    }
+}
