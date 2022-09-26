@@ -14,4 +14,5 @@ $router->get('/products/update', [ProductController::class, 'update']);
 $router->post('/products/update', [ProductController::class, 'update']);
 $router->post('/products/delete', [ProductController::class, 'delete']);
 
+//detects current route and will execute corresponding function
 $router->resolve();
